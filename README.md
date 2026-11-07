@@ -8,6 +8,7 @@ Proyecto del módulo de Sistemas de Aprendizaje Automático: predecir el precio 
 | --- | --- |
 | `entregable_Alan_McLure_Alarcon.ipynb` | Proyecto completo |
 | `entregable_Alan_McLure_Alarcon.html` | Exportación, para leerlo sin instalar nada |
+| `experimento_pipeline.ipynb` | Revisión del modelo: evaluación contra el precio real, sin fugas de datos y con validación temporal |
 | `data/house-price-data.csv` | Datos |
 | `data/data_description.txt` | Descripción de las columnas |
 
@@ -22,11 +23,22 @@ jupyter notebook entregable_Alan_McLure_Alarcon.ipynb
 
 > El notebook es la entrega original: no se modifica. Para experimentar, crea otro.
 
+Los experimentos se abren igual, cambiando el nombre del archivo.
+
+## Resultados de la revisión
+
+`experimento_pipeline.ipynb` reproduce las métricas de la entrega y después las corrige. Resultados en test (ventas de enero a julio de 2010):
+
+| Modelo | Se mide contra | MAE | R² |
+| --- | --- | --- | --- |
+| Random forest de la entrega | Precio recortado | $14.064 | 0,890 |
+| El mismo modelo | Precio real | $18.389 | 0,809 |
+| Gradient boosting con `log(precio)`, ajustado | Precio real | $13.330 | 0,925 |
+
+Las conclusiones y los límites están al final del notebook.
+
 ## Ideas para seguir aprendiendo
 
-1. **Separar train, validation y test antes de transformar los datos.** El propio notebook señala que no se hizo porque el enunciado lo simplificaba.
-2. **Usar `Pipeline` y `ColumnTransformer`** para evitar filtraciones de datos.
-3. **Búsqueda de hiperparámetros** con validación cruzada.
-4. **Probar gradient boosting** y explicar el modelo con SHAP.
-5. **Publicarlo**: un formulario en Streamlit y una API que prediga el precio.
-6. **Hacerlo útil en España**: el mismo enfoque con precios reales de vivienda de tu zona.
+1. **Explicar el modelo con SHAP.** El experimento ya separa los datos antes de transformarlos, usa `Pipeline`, busca hiperparámetros con validación temporal y prueba gradient boosting.
+2. **Publicarlo**: un formulario en Streamlit y una API que prediga el precio.
+3. **Hacerlo útil en España**: el mismo enfoque con precios reales de vivienda de tu zona.
